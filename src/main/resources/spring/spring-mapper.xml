@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置SqlSessionFactoryBean-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--设置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--设置核心配置文件的路径-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--设置类型别名所对应的包-->
+        <property name="typeAliasesPackage" value="cc.zzzooo.pojo"/>
+        <!--
+            设置映射文件的路径
+            若配置了MapperScannerConfigurer,则要求mapper接口和映射文件所在的包一致,若一致,可以不设置该标签
+            若不一致,则必须设置
+        -->
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
+    </bean>
+
+    <!--
+        配置mapper接口的扫描
+        可以将指定包下的所有的mapper接口的对象作为组件交给IOC容器管理
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="cc.zzzooo.mapper"/>
+    </bean>
+</beans>
